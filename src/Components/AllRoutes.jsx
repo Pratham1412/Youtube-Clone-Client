@@ -18,7 +18,7 @@ function AllRoutes() {
         <Route path='/history'element={<WatchHistory/>}/>
         <Route path='/watchlater'element={<WatchLater/>}/>
         <Route path='/likedvideo'element={<LikedVideo/>}/>
-        <Route path='/yourvideos'element={<YourVideoVideo/>}/>
+        <Route path='/yourvideos'element={<YourVideo/>}/>
     </Routes>
   )
 }
