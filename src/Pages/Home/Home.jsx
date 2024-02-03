@@ -49,13 +49,11 @@ function Home() {
     "Animation",
     "Gaming",
     "Comedy",
-    "Java",
-    "C++",
     "Movies",
     "Science",
     "Animation",
     "Gaming",
-    "Comedy"
+    "Comedy",
   ]
   return (
     <div className='container_Pages_App'>
