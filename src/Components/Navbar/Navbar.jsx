@@ -7,13 +7,16 @@ import {BiUserCircle} from 'react-icons/bi'
 import { IoMdNotificationsOutline } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 function Navbar({toggleDrawer}) {
-    //const CurrentUser=null;
-     const CurrentUser ={
-        result: {
-            email:"xyz@mail.com",
-            joinedOn: "2222-07-15t09:57:23.489z",
-        },
-     };
+    const CurrentUser=null;
+    //  const CurrentUser ={
+    //     result: {
+    //         email:"xyz@mail.com",
+    //         joinedOn: "2222-07-15t09:57:23.489z",
+    //     },
+    //  };
+
+
+    
   return (
     <div className="Container_Navbar">
         <div className="Burger_Logo_Navbar">
