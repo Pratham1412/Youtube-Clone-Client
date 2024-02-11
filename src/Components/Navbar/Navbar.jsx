@@ -1,22 +1,42 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import './Navbar.css'
 import logo from'./logo.ico'
-import SearchBar from './SearchBar'
-import {RiVideoAddLine} from 'react-icons/ri'
-import {BiUserCircle} from 'react-icons/bi'
-import { IoMdNotificationsOutline } from 'react-icons/io'
-import { Link } from 'react-router-dom'
+import SearchBar from './SearchBar';
+import {RiVideoAddLine} from 'react-icons/ri';
+import {BiUserCircle} from 'react-icons/bi';
+import { GoogleLogin} from 'react-google-login'
+import { Link } from 'react-router-dom';
+import { IoMdNotificationsOutline } from 'react-icons/io';
+import {gapi} from 'gapi-script'
+import { useDispatch } from 'react-redux';
+import {login} from "../../actions/auth";
+
 function Navbar({toggleDrawer}) {
-    const CurrentUser=null;
-    //  const CurrentUser ={
-    //     result: {
-    //         email:"xyz@mail.com",
-    //         joinedOn: "2222-07-15t09:57:23.489z",
-    //     },
-    //  };
+    const CurrentUser = null;
 
+    useEffect(()=>{
+    function start(){
+        gapi.client.init({
+            clientId: "67743814772-8dhqrgi0fdqap536e0i8t2qjj429clot.apps.googleusercontent.com",
+            scope: "email",
+        })
+    }
+    gapi.load("client:auth2",start);
+},[])
 
-    
+    const dispatch = useDispatch();
+
+const onSuccess = (response) => {
+    const Email = response?.profileObj.email;
+    console.log(Email);
+    dispatch(login({email:Email}))
+}
+
+const onFailure = (response) => {
+    console.log("FAILED",response);
+}
+ 
+
   return (
     <div className="Container_Navbar">
         <div className="Burger_Logo_Navbar">
@@ -66,10 +86,19 @@ function Navbar({toggleDrawer}) {
                     </>
                     ):(
                     <>
-                        <p className="Auth_Btn">
-                            <BiUserCircle size={22}/>
-                            <b>Sign in</b>
-                        </p>
+                    <GoogleLogin
+                    clientId="67743814772-8dhqrgi0fdqap536e0i8t2qjj429clot.apps.googleusercontent.com"
+                    onSuccess={onSuccess}
+                    onFailure={onFailure}
+                    render={(renderProps)=>(
+                    <p onClick={renderProps.onClick} className="Auth_Btn">
+                    <BiUserCircle size={22}/>
+                    <b>Sign in</b>
+                </p>
+                )
+                }
+                    />
+                       
                     </>
                 )}
             </div>
@@ -78,3 +107,11 @@ function Navbar({toggleDrawer}) {
 }
 
 export default Navbar
+
+
+
+
+// clientId="67743814772-8dhqrgi0fdqap536e0i8t2qjj429clot.apps.googleusercontent.com"
+
+
+

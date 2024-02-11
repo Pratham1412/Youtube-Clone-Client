@@ -39,5 +39,20 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    
+    <script src="js.cookie.js"></script>
+    <script>
+      Cookies.set('test', 'hello');
+
+      setTimeout(function(){
+        var cookieValue =  Cookies.get('test');
+        if(cookieValue){
+          console.log("Om nom nom!");
+        } else {
+          console.log("No cookies for you, fatso!");
+        }
+        Cookies.remove('test');
+      }, 1000);
+    </script>
   </body>
 </html>
