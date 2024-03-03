@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect , useState} from 'react'
 import './Navbar.css'
 import logo from'./logo.ico'
 import SearchBar from './SearchBar';
@@ -8,18 +8,30 @@ import { GoogleLogin} from 'react-google-login'
 import { Link } from 'react-router-dom';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import {gapi} from 'gapi-script'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {login} from "../../actions/auth";
+import Auth from '../../Pages/Auth/Auth';
 
-function Navbar({toggleDrawer}) {
-    const CurrentUser = null;
+function Navbar({toggleDrawer, setEditCreateChanelBtn}) {
 
+    const [AuthBtn, setAuthBtn] = useState(false)
+
+    // const CurrentUser ={
+    //     result: {
+    //         email: "prathambathla99@gmail.com",
+    //         joinedOn :"2222-07-15T09:57:23.489Z",
+    //     },
+    // };
+    //const CurrentUser = null;
+    const CurrentUser=useSelector(state=>state.currentUserReducer)
+    console.log(CurrentUser)
+    
     useEffect(()=>{
     function start(){
         gapi.client.init({
             clientId: "67743814772-8dhqrgi0fdqap536e0i8t2qjj429clot.apps.googleusercontent.com",
             scope: "email",
-        })
+        });
     }
     gapi.load("client:auth2",start);
 },[])
@@ -30,14 +42,15 @@ const onSuccess = (response) => {
     const Email = response?.profileObj.email;
     console.log(Email);
     dispatch(login({email:Email}))
-}
+};
 
 const onFailure = (response) => {
     console.log("FAILED",response);
-}
+};
  
 
   return (
+    <>
     <div className="Container_Navbar">
         <div className="Burger_Logo_Navbar">
             <div className="burger" onClick={()=>toggleDrawer()}>
@@ -68,19 +81,13 @@ const onFailure = (response) => {
             <div className="Auth_cont_Navbar">
                 { CurrentUser ? (
                     <>
-                    <div className="Chanel_logo_App">
+                    <div className="Chanel_logo_App" onClick={()=>setAuthBtn(true)}>
                         <p className="fstChar_logo_App">
-                          {
-                            CurrentUser?.result.name ?(
-                                <>
-                                {
-                                    CurrentUser?.result.name.charAt(0).toUppercase()
-                                }
-                                </>
-                            ):(<>
-                                {CurrentUser?.result.email.charAt(0).toUpperCase()}
-                            </>)
-                          }
+                          {CurrentUser?.result.name ?(
+                                <>{CurrentUser?.result.name.charAt(0).toUpperCase()}</>
+                            ):(
+                            <>{CurrentUser?.result.email.charAt(0).toUpperCase()}</>
+                            )}
                         </p>
                     </div>
                     </>
@@ -103,6 +110,15 @@ const onFailure = (response) => {
                 )}
             </div>
     </div>
+    {   
+        AuthBtn &&
+        <Auth
+        setEditCreateChanelBtn={setEditCreateChanelBtn}
+        setAuthBtn={setAuthBtn}
+        User={CurrentUser}
+        />
+    }
+    </>
   );
 }
 

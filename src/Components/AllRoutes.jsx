@@ -10,8 +10,9 @@ import WatchHistory from '../Pages/WatchHistory/WatchHistory';
 import WatchLater from '../Pages/WatchLater/WatchLater';
 import LikedVideo from '../Pages/LikedVideo/LikedVideo';
 import VideoPage from '../Pages/VideoPage/VideoPage';
+import Chanel from '../Pages/Chanel/Chanel';
 
-function AllRoutes() {
+function AllRoutes({setEditCreateChanelBtn}) {
   return (
     <Routes>
         <Route path='/'element={<Home/>}/>
@@ -21,6 +22,9 @@ function AllRoutes() {
         <Route path='/likedvideo'element={<LikedVideo/>}/>
         <Route path='/yourvideos'element={<YourVideo/>}/>
         <Route path='/videopage/:vid'element={<VideoPage/>}/>
+        <Route path='/chanel/:Cid'
+        element={<Chanel setEditCreateChanelBtn={setEditCreateChanelBtn}/>}/>
+        
     </Routes>
   )
 }
