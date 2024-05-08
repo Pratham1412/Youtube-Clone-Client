@@ -11,6 +11,7 @@ import {
 import CreateEditChanel from './Pages/Chanel/CreateEditChanel';
 import { useDispatch } from 'react-redux';
 import { fetchAllChanels } from './actions/chanelUser';
+import VideoUpload from './Pages/VideoUpload/VideoUpload';
 function App() {
 
   const dispatch=useDispatch()
@@ -34,10 +35,16 @@ function App() {
         display:"none"
       })
     }
-  }
+  };
+const [vidUploadPage, setVidUploadPage] = useState(false)
+
   const [EditCreateChanelBtn, setEditCreateChanelBtn] = useState(false)
   return (
     <Router>
+      {
+        vidUploadPage &&
+        <VideoUpload setVidUploadPage={setVidUploadPage}/>
+      }
       {
         EditCreateChanelBtn && <CreateEditChanel setEditCreateChanelBtn={setEditCreateChanelBtn} />}
       <Navbar
@@ -49,7 +56,7 @@ function App() {
           toggleDrawerSidebar={toggleDrawerSidebar}
         />
       
-      <AllRoutes setEditCreateChanelBtn={setEditCreateChanelBtn}/>
+      <AllRoutes  setVidUploadPage={setVidUploadPage} setEditCreateChanelBtn={setEditCreateChanelBtn}/>
     </Router>
   );
 }

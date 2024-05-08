@@ -2,7 +2,7 @@ import React from 'react'
 import { FaEdit, FaUpload } from 'react-icons/fa'
 import {useSelector} from 'react-redux'
 import './DescribeChanel.css'
-function DescribeChanel({setEditCreateChanelBtn,Cid}) {
+function DescribeChanel({setEditCreateChanelBtn,Cid,setVidUploadPage}) {
 
 
     const chanels=useSelector((state)=>state?.chanelReducers)
@@ -21,7 +21,7 @@ function DescribeChanel({setEditCreateChanelBtn,Cid}) {
         </div>
         <div className='description_chanel'>
             <b> {currentChanel?.name}</b>
-            <p>{currentChanel.desc}</p>
+            <p>{currentChanel?.desc}</p>
         </div>
 {
     CurrentUser?.result._id === currentChanel?._id && <>
@@ -30,7 +30,7 @@ function DescribeChanel({setEditCreateChanelBtn,Cid}) {
             <FaEdit/>
             <b> Edit Chanel</b>
         </p>
-        <p className="uploadbtn_chanel">
+        <p className="uploadbtn_chanel" onClick={()=>setVidUploadPage(true)}>
             <FaUpload/>
             <b> Upload Video</b>
         </p>

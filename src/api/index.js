@@ -13,3 +13,5 @@ API.interceptors.request.use(req =>{
  export const updateChanelData=(id,updateData)=> API.patch(`/user/update/${id}`,updateData)
 
  export const fetchAllChanels=()=>API.get('/user/getAllChanels')
+
+ export const uploadVideo=(fileData, fileOptions)=>API.post('/video/uploadVideo',fileData,fileOptions);

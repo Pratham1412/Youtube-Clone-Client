@@ -4,7 +4,7 @@ import LeftSidebar from '../../Components/LeftSidebar/LeftSidebar';
 import vid from '../../Components/Video/vid.mp4'
 import DescribeChanel from './DescribeChanel';
 import { useParams } from 'react-router-dom';
-function Chanel({setEditCreateChanelBtn}) {
+function Chanel({setEditCreateChanelBtn,setVidUploadPage}) {
 
     const {Cid}=useParams();
 
@@ -48,6 +48,7 @@ function Chanel({setEditCreateChanelBtn}) {
           <div className="container2_Pages_App">
             <DescribeChanel 
             Cid={Cid}
+            setVidUploadPage={setVidUploadPage}
             setEditCreateChanelBtn={setEditCreateChanelBtn}/>
             <ShowVideoGrid vids={vids}/>
           </div>
