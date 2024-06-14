@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { likeVideo } from '../../actions/video'
-import { addTolikedVideo } from '../../actions/likedVideo'
+import { addTolikedVideo} from "../../actions/likedVideo";
 function LikeWatchLaterSaveBtns({vv,vid}) {
     const CurrentUser = useSelector((state) => state?.currentUserReducer);
     const dispatch=useDispatch()
@@ -41,12 +41,12 @@ function LikeWatchLaterSaveBtns({vv,vid}) {
                 Like: lk + 1,
             })
         );
-            dispatch(
-                addTolikedVideo({
-                    videoId:vid,
-                    Viewer: CurrentUser?.result._id,
-                })
-            );
+        dispatch(
+            addTolikedVideo({
+              videoId: vid,
+              Viewer: CurrentUser?.result._id,
+            })
+          );
             setDislikeBtn(false);
         }
     }else{

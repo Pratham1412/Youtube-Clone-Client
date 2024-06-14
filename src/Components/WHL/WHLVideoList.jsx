@@ -1,9 +1,10 @@
 import React from 'react'
 import ShowVideoList from '../ShowVideoList/ShowVideoList'
 function WHLVideoList({page,videoList}) {
+  console.log(videoList)
   return (
     <>
-    {
+    {/* {
       videoList.map(m=>{
         return(
           <>
@@ -11,9 +12,9 @@ function WHLVideoList({page,videoList}) {
           </>
         )
       })
-    }
+    } */}
     </>
   )
 }
 
-export default WHLVideoList
+export default WHLVideoList;
