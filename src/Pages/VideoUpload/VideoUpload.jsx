@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import "./VideoUpload.css";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadVideo } from "../../actions/video";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import "./VideoUpload.css";
 function VideoUpload({ setVidUploadPage }) {
   const CurrentUser = useSelector((state) => state.currentUserReducer);
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [videoFile, setVideoFile] = useState("");
 
-  const handlesetVideoFile = (e) => {
+  const handleSetVideoFile = (e) => {
     setVideoFile(e.target.files[0]);
   };
 
@@ -31,22 +30,22 @@ function VideoUpload({ setVidUploadPage }) {
     if (!title) {
       alert("Plz Enter A Title of the video");
     } else if (!videoFile) {
-      alert("plz Attach a video File");
-    } else if (videoFile.size > 10000000000) {
-      alert("PLZ Attach video file less than 1 KB");
+      alert("Plz Attach a video File");
+    } else if (videoFile.size > 1000000) {
+      alert("Plz Attch video file less than 1kb");
     } else {
       const fileData = new FormData();
       fileData.append("file", videoFile);
       fileData.append("title", title);
       fileData.append("chanel", CurrentUser?.result._id);
-      fileData.append("Uploader", CurrentUser?.result.name);
+      fileData.append("Uploder", CurrentUser?.result.name);
+    //   console.log(videoFile)
       dispatch(
         uploadVideo({
           fileData: fileData,
           fileOptions: fileOptions,
         })
       );
-      // console.log(videoFile)
     }
   };
 
@@ -60,26 +59,28 @@ function VideoUpload({ setVidUploadPage }) {
         className="ibtn_x"
       />
       <div className="container2_VidUpload">
-        <input
-          type="text"
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-          className="ibox_vidupload"
-          maxLength={30}
-          placeholder="Enter Title of your video"
-        />
-        <label htmlFor="file" className="ibox_vidupload btn_vidUpload">
+        <div className="ibox_div_vidupload">
           <input
-            type="file"
-            name="file"
-            className="ibox_vidupload"
-            style={{ fontSize: "1rem" }}
             onChange={(e) => {
-              handlesetVideoFile(e);
+              setTitle(e.target.value);
             }}
+            type="text"
+            className="ibox_vidupload"
+            maxLength={30}
+            placeholder="Enter Title of your video"
           />
-        </label>
+          <label htmlFor="file" className="ibox_vidupload btn_vidUpload">
+            <input
+              type="file"
+              name="file"
+              className="ibox_vidupload"
+              style={{ fontSize: "1rem" }}
+              onChange={(e) => {
+                handleSetVideoFile(e);
+              }}
+            />
+          </label>
+        </div>
         <div className="ibox_div_vidupload">
           <input
             onClick={() => uploadVideoFile()}
@@ -88,7 +89,7 @@ function VideoUpload({ setVidUploadPage }) {
             className="ibox_vidupload btn_vidUpload"
           />
         </div>
-        <div className="loader ibox_div_vidupload ">
+        <div className="loader ibox_div_vidupload">
           <CircularProgressbar
             value={progress}
             text={`${progress}`}

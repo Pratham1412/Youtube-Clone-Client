@@ -5,7 +5,12 @@ import { MdPlaylistAddCheck } from 'react-icons/md'
 import { RiHeartAddFill, RiPlayListAddFill, RiShareForwardLine } from 'react-icons/ri'
 import { useState } from 'react'
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from 'react-icons/ai'
-function LikeWatchLaterSaveBtns() {
+import { useDispatch, useSelector } from 'react-redux'
+import { likeVideo } from '../../actions/video'
+import { addTolikedVideo } from '../../actions/likedVideo'
+function LikeWatchLaterSaveBtns({vv,vid}) {
+    const CurrentUser = useSelector((state) => state?.currentUserReducer);
+    const dispatch=useDispatch()
     const [SaveVideo, setSaveVideo] = useState(true);
     const [DislikeBtn, setDislikeBtn] = useState(false);
     const [LikeBtn, setLikeBtn] = useState(false);
@@ -17,22 +22,57 @@ function LikeWatchLaterSaveBtns() {
                 setSaveVideo(true);
             }
     }
-    const toggleLikeBtn=()=>{
+    const toggleLikeBtn=(e,lk)=>{
+        if(CurrentUser){
         if(LikeBtn){
             setLikeBtn(false);
+            dispatch(
+                likeVideo({
+                id: vid,
+                Like: lk - 1,
+            })
+        );
         }
         else{
             setLikeBtn(true);
-        }
-    }
-
-    const toggleDislikeBtn=()=>{
-        if(DislikeBtn){
+            dispatch(
+                likeVideo({
+                id: vid,
+                Like: lk + 1,
+            })
+        );
+            dispatch(
+                addTolikedVideo({
+                    videoId:vid,
+                    Viewer: CurrentUser?.result._id,
+                })
+            );
             setDislikeBtn(false);
         }
-        else{
-            setDislikeBtn(true);
+    }else{
+        alert("Plz login to give a like")
+    }
+    }
+
+    const toggleDislikeBtn=(e,lk)=>{
+        if(CurrentUser){
+        if(DislikeBtn){
+            setDislikeBtn(false);
+            }
+            else{
+                setDislikeBtn(true);
+                if(LikeBtn){
+                    dispatch(
+                        likeVideo({
+                        id:vid,
+                        Like: lk - 1,
+                    }));
+                }
+                setLikeBtn(false);
         }
+    }else{
+        alert("Plz login to give a like")
+    }
     }
   return (
     <div className='btns_cont_videoPage'>
@@ -41,7 +81,7 @@ function LikeWatchLaterSaveBtns() {
         </div>
 
         <div className='btn_VideoPage'>
-            <div className="like_videoPage" onClick={()=>toggleLikeBtn()}>
+            <div className="like_videoPage" onClick={(e)=>toggleLikeBtn(e,vv.Like)}>
                 {
                     LikeBtn ? (<>
                         <AiFillLike size={22} className='btns_videoPage'/>
@@ -51,10 +91,10 @@ function LikeWatchLaterSaveBtns() {
                         <AiOutlineLike size={22} className='btns_videoPage'/>
                     </>
                 )}
-                <b>1</b>
+                <b>{vv.Like}</b>
             </div>
 
-            <div className="like_videoPage" onClick={()=>toggleDislikeBtn()}>
+            <div className="like_videoPage" onClick={(e)=>toggleDislikeBtn(e,vv?.Like)}>
                 {
                     DislikeBtn ? (<>
                         <AiFillDislike size={22} className='btns_videoPage'/>

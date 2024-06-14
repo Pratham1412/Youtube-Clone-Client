@@ -20,7 +20,7 @@ function ShowVideo({ vid }) {
         </div>
         <div className="video_details">
           <p className="title_vid_ShowVideo">{vid?.videoTitle}</p>
-          <pre className="vid_views_UploadTime">{vid.Uploder}</pre>
+          <pre className="vid_views_UploadTime">{vid.Uploader}</pre>
           <pre className="vid_views_UploadTime">
           {vid?.Views} views <div className="dot"></div> {moment(vid?.createdAt).fromNow()}
           </pre>
