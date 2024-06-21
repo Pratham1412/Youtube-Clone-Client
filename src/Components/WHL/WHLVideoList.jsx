@@ -1,5 +1,5 @@
 import React from 'react'
-import ShowVideoList from '../ShowVideoList/ShowVideoList'
+// import ShowVideoList from '../ShowVideoList/ShowVideoList'
 function WHLVideoList({page,videoList}) {
   console.log(videoList)
   return (
