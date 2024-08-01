@@ -13,9 +13,14 @@ function VideoPage() {
 
 //   const currentChanel = chanels.filter((c) => c._id === vid)[0];
 
-   const vids = useSelector(state=>state.videoReducer);
+const vids = useSelector(state=>state.videoReducer)
    //console.log(vids)
-   const vv=vids?.data.filter(q=> q._id=== vid)[0];
+   const vv=vids?.data.filter((q) => q._id=== vid)[0];
+
+
+//    if (!vv) {
+//     return <div>Loading...</div>;
+// }
    
   return (
     <>
@@ -33,7 +38,7 @@ function VideoPage() {
                             <p className='video_title_VideoPage'> {vv?.videoTitle}</p>
                             <div className="views_date_btns_VideoPage">
                                 <div className="views_videoPage">
-                                    {vv?.__v} views <div className="dot"></div>{moment(vid?.createdAt).fromNow()}
+                                    {vv?.__v} views <div className="dot"></div>{" "}{moment(vv?.createdAt).fromNow()}
                                 </div>
                                 <LikeWatchLaterSaveBtns vv={vv} vid={vid}/>
                             </div>

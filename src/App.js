@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { fetchAllChanels } from "./actions/chanelUser";
 import VideoUpload from "./Pages/VideoUpload/VideoUpload";
 import { getAllVideo } from "./actions/video";
+import { getAllComment } from "./actions/comment";
 import { getAlllikedVideo } from "./actions/likedVideo";
 // import {  getAlllikedVideo } from "./actions/likedVideo";
 
@@ -21,6 +22,7 @@ function App() {
     dispatch(fetchAllChanels());
     dispatch(getAllVideo());
     dispatch(getAlllikedVideo());
+    dispatch(getAllComment());
   }, [dispatch]);
 
   const [toggleDrawerSidebar, setToggleDrawerSidebar] = useState({

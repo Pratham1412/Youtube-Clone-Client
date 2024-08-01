@@ -1,26 +1,46 @@
 import React from 'react'
 import './Comments.css'
 import { useState } from 'react'
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux'
+import { postComment } from '../../actions/comment';
 import DisplayComments from './DisplayComments';
-function Comments() {
+const  Comments = ({videoid})=> {
+    const dispatch=useDispatch()
     const [commentText,setCommentText] = useState("");
+    const currentuser=useSelector(state => state.currentuserreducer)
+    const commentsList=useSelector(state=>state.commentreducer)
+    // const commentsList=[
+    //     {
+    //         _id:"1",
+    //         commentBody:"hello",
+    //         userCommented:"abc",
+    //     },
+    //     {
+    //         _id:"2",
 
-    const commentsList=[
-        {
-            _id:"1",
-            commentBody:"hello",
-            userCommented:"abc",
-        },
-        {
-            _id:"2",
-
-            commentBody:"hii",
-            userCommented:"xyz"
-        }
-    ]
+    //         commentBody:"hii",
+    //         userCommented:"xyz"
+    //     }
+    // ]
 
     const handleOnSubmit=(e)=>{
         e.preventDefault();
+        if(currentuser){
+            if(!currentuser){
+                alert("please type your comment!!")
+            }
+            else{
+                dispatch(postComment({
+                    videoid:videoid,
+                    userid:currentuser?.result._id,
+                    commentbody:commentText,
+                    usercommented:currentuser.result.name
+
+                }))
+                setCommentText("")
+            }
+        }
     };
   return (
     <>
@@ -36,15 +56,17 @@ function Comments() {
         </form>
         <div className='display_comment_container'>
             {
-                commentsList.map(m=>{
+                commentsList?.data.filter((q) => videoid === q?.videoid)
+                .reverse()
+                .map((m=>{
                     return(
                         <DisplayComments
                         cId={m._id}
-                        commentBody={m.commentBody}
+                        commentbody={m.commentbody}
                         userCommented={m.userCommented}
                         />
                     )
-                })
+                }))
             }
             {/* <DisplayComments/> */}
         </div>

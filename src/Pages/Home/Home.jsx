@@ -5,7 +5,7 @@ import ShowVideoGrid from "../../Components/ShowVideoGrid/ShowVideoGrid";
 import "./Home.css";
 import { useSelector } from "react-redux";
 function Home() {
-  const vids = useSelector(state=>state.videoReducer)?.data;
+  const vids = useSelector(state=>state.videoReducer)?.data?.filter(q=>q).reverse();
   //console.log(videosFile);
   // const vids = [
   //   {

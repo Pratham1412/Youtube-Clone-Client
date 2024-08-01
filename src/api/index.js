@@ -22,8 +22,13 @@ export const uploadVideo = (fileData, fileOptions) =>
 export const getVideos = () => API.get("/video/getvideos");
 
 export const likeVideo = (id, Like) => API.patch(`/video/like/${id}`, { Like });
+export const viewsVideo = (id) => API.patch(`/video/view/${id}`);
 
 export const addToLikedVideo = (likedVideoData) =>API.post("/video/likeVideo", likedVideoData);
 
 export const getAlllikedVideo =()=>API.get("/video/getAlllikeVideo");
 
+export const postComment=(commentdata)=>API.post('/comment/post',commentdata)
+export const deleteComment=(id)=>API.delete(`/comment/delete/${id}`)
+export const editComment=(id,commentbody)=>API.patch(`/comment/edit/${id}`,{commentbody})
+export const getAllComment=()=>API.get('/comment/get')
