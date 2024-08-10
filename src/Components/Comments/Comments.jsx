@@ -2,14 +2,14 @@ import React from 'react'
 import './Comments.css'
 import { useState } from 'react'
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { postComment } from '../../actions/comment';
 import DisplayComments from './DisplayComments';
-const  Comments = ({videoid})=> {
+function  Comments ({videoId}) {
     const dispatch=useDispatch()
     const [commentText,setCommentText] = useState("");
-    const currentuser=useSelector(state => state.currentuserreducer)
-    const commentsList=useSelector(state=>state.commentreducer)
+    const CurrentUser=useSelector((state) => state?.currentUserReducer)
+    const commentsList=useSelector((s)=>s.commentReducer)
     // const commentsList=[
     //     {
     //         _id:"1",
@@ -24,24 +24,26 @@ const  Comments = ({videoid})=> {
     //     }
     // ]
 
-    const handleOnSubmit=(e)=>{
+    const handleOnSubmit = (e) => {
         e.preventDefault();
-        if(currentuser){
-            if(!currentuser){
-                alert("please type your comment!!")
-            }
-            else{
-                dispatch(postComment({
-                    videoid:videoid,
-                    userid:currentuser?.result._id,
-                    commentbody:commentText,
-                    usercommented:currentuser.result.name
-
-                }))
-                setCommentText("")
-            }
+        if (CurrentUser) {
+          if (!commentText) {
+            alert("Plz Type your comment ! ");
+          } else {
+            dispatch(
+              postComment({
+                videoId: videoId,
+                userId: CurrentUser?.result._id,
+                commentBody: commentText,
+                userCommented: CurrentUser?.result.name,
+              })
+            );
+            setCommentText("");
+          }
+        }else{
+          alert("Plz login to post your commnet !")
         }
-    };
+      };
   return (
     <>
         <form className='comments_sub_form_comments'
@@ -56,7 +58,7 @@ const  Comments = ({videoid})=> {
         </form>
         <div className='display_comment_container'>
             {
-                commentsList?.data.filter((q) => videoid === q?.videoid)
+                commentsList?.data.filter((q) => videoId === q?.videoId)
                 .reverse()
                 .map((m=>{
                     return(

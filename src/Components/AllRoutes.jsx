@@ -22,6 +22,7 @@ function AllRoutes({setEditCreateChanelBtn,setVidUploadPage}) {
         <Route path='/likedvideo'element={<LikedVideo/>}/>
         <Route path='/yourvideos'element={<YourVideo/>}/>
         <Route path='/videopage/:vid'element={<VideoPage/>}/>
+        {/* <Route path="/seacrh/:searchQuery" element={<Search />} /> */}
         <Route path='/chanel/:Cid'
         element={<Chanel
         setVidUploadPage={setVidUploadPage}

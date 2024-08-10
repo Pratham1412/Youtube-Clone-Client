@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteComment, editComment } from "../../actions/comment";
 
-import './Comments.css'
+import "./Comments.css";
 function DisplayComments({
   cId,
   commentBody,
@@ -23,6 +23,7 @@ function DisplayComments({
   };
 
   const dispatch = useDispatch();
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (!cmtBdy) {
@@ -38,8 +39,8 @@ function DisplayComments({
     }
     setEdit(false);
   };
-  const handleDel=(id)=>{
-    dispatch(deleteComment(id))
+  const handleDel = (id) => {
+    dispatch(deleteComment(id));
   }
   return (
     <>
@@ -72,8 +73,8 @@ function DisplayComments({
       </p>
       {CurrentUser?.result._id === userId && (
         <p className="EditDel_DisplayCommendt">
-          <i onClick={() => handleEdit(cId, commentBody)}>Edit</i>
-          <i onClick={()=> handleDel(cId)} >Delete</i>
+          <i onClick={() => handleEdit(cId, commentBody)}>Edit  </i>
+          <i onClick={() => handleDel(cId)}>Delete</i>
         </p>
       )}
     </>

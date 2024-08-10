@@ -1,10 +1,11 @@
 import React from 'react'
-import vid from '../../Components/Video/vid.mp4'
+//import vid from '../../Components/Video/vid.mp4'
 import ShowVideo from '../ShowVideo/ShowVideo';
-import WHL from '../../Components/WHL/WHL';
+//import WHL from '../../Components/WHL/WHL';
 import { useSelector } from 'react-redux';
-function ShowVideoList({videoId,}) {
-  const vids = useSelector(state=>state.videoReducer)
+function ShowVideoList({videoId}) {
+  const vids = useSelector(s=>s.videoReducer)
+  console.log(vids.data)
     // const vids = [
     //     {
     //       _id: 1,
@@ -42,7 +43,7 @@ function ShowVideoList({videoId,}) {
   return (
     <div className='Container_ShowVideoGrid'>
         {
-            vids?.filter(q=>q._id==videoId).map(vi=>
+            vids?.data?.filter(q=>q._id===videoId).map(vi=>
                 {
                     return(
                         <div key={vi._id} className="video_box_app">

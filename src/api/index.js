@@ -28,7 +28,14 @@ export const addToLikedVideo = (likedVideoData) =>API.post("/video/likeVideo", l
 
 export const getAlllikedVideo =()=>API.get("/video/getAlllikeVideo");
 
-export const postComment=(commentdata)=>API.post('/comment/post',commentdata)
+export const addToHistory = (HistoryData) =>
+  API.post("/video/History", HistoryData);
+export const getAllHistory = () => API.get("/video/getAllHistory");
+export const deleteHistory = (userId) =>
+  API.delete(`/video/deleteHistory/${userId}`);
+
+export const postComment=(CommentData)=>API.post('/comment/post',CommentData)
 export const deleteComment=(id)=>API.delete(`/comment/delete/${id}`)
-export const editComment=(id,commentbody)=>API.patch(`/comment/edit/${id}`,{commentbody})
+export const editComment=(id,commentBody)=>API.patch(`/comment/edit/${id}`,{commentBody})
 export const getAllComment=()=>API.get('/comment/get')
+
