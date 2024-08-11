@@ -58,16 +58,18 @@ function  Comments ({videoId}) {
         </form>
         <div className='display_comment_container'>
             {
-                commentsList?.data.filter((q) => videoId === q?.videoId)
+                commentsList?.data?.filter((q) => videoId === q?.videoId)
                 .reverse()
                 .map((m=>{
                     return(
                         <DisplayComments
                         cId={m._id}
-                        commentbody={m.commentbody}
+                        userId={m.userId}
+                        commentBody={m.commentBody}
+                        commentOn={m.commentOn}
                         userCommented={m.userCommented}
                         />
-                    )
+                    );
                 }))
             }
             {/* <DisplayComments/> */}
