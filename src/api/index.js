@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: `http://localhost:5500/` });
+const API = axios.create({ baseURL: `youtube-clone-server-4s7tyg2ji-prathams-projects-e8bf2c83.vercel.app` });
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("Profile")) {
     req.headers.authorization = ` Bearer ${
